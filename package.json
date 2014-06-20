@@ -1,0 +1,26 @@
+{
+  "name": "rtc-ui-setup",
+  "version": "0.0.0",
+  "description": "A WebRTC UI element to assist with ensuring that all the components of a users system are setup ready to go for WebRTC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gendocs": "gendocs > README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rtc-io/rtc-ui-setup.git"
+  },
+  "keywords": [
+    "webrtc",
+    "rtc.io",
+    "ui",
+    "wizard"
+  ],
+  "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/rtc-io/rtc-ui-setup/issues"
+  },
+  "homepage": "https://github.com/rtc-io/rtc-ui-setup"
+}
