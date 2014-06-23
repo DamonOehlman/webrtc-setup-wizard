@@ -24,9 +24,10 @@
   },
   "homepage": "https://github.com/rtc-io/rtc-ui-setup",
   "dependencies": {
-    "brfs": "^1.1.1",
-    "crel": "^1.1.2",
-    "svg": "0.0.1"
+    "brfs": "^1",
+    "crel": "^1",
+    "defaultcss": "0.0.2",
+    "svg": "npm-dom/svg#restructure"
   },
   "browserify": {
     "transforms": [

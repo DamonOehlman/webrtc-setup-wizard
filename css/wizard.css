@@ -1,0 +1,36 @@
+.rtc-wizard {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.rtc-wizard section {
+  position: absolute;
+
+  padding: 5%;
+  width: 90%;
+  height: 90%;
+
+  top: 0;
+  left: 0;
+
+  -webkit-transform: translateX(100%) translateZ(0px);
+  transform: translateX(100%) translateZ(0px);
+
+  -webkit-transition: all ease-in-out 0.5s;
+  transition: all ease-in-out 0.5s;
+}
+
+.rtc-wizard section[data-state="active"] {
+  -webkit-transform: translateX(0px) translateZ(0px);
+  transform: translateX(0px) translateZ(0px);
+}
+
+.rtc-wizard  section[data-state="past"] {
+  -webkit-transform: translateX(-100%) translateZ(0px);
+  transform: translateX(-100%) translateZ(0px);
+}

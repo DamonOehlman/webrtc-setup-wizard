@@ -1,3 +1,6 @@
-var createWizard = require('..');
+var setupWizard = require('..');
+var wizard = setupWizard(function() {
+  console.log('done');
+});
 
-document.body.appendChild(createWizard());
+document.body.appendChild(wizard);
