@@ -22,5 +22,15 @@
   "bugs": {
     "url": "https://github.com/rtc-io/rtc-ui-setup/issues"
   },
-  "homepage": "https://github.com/rtc-io/rtc-ui-setup"
+  "homepage": "https://github.com/rtc-io/rtc-ui-setup",
+  "dependencies": {
+    "brfs": "^1.1.1",
+    "crel": "^1.1.2",
+    "svg": "0.0.1"
+  },
+  "browserify": {
+    "transforms": [
+      "brfs"
+    ]
+  }
 }
