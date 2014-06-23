@@ -30,8 +30,9 @@
     "svg": "npm-dom/svg#restructure"
   },
   "browserify": {
-    "transforms": [
+    "transform": [
       "brfs"
     ]
-  }
+  },
+  "devDependencies": {}
 }
