@@ -113,7 +113,10 @@ module.exports = function(opts, callback) {
     if (active) {
       action = stepActions[active.dataset.step];
       if (typeof action == 'function') {
-        action(active, opts);
+        // trigger after the transition completes
+        setTimeout(function() {
+          action(active, opts);
+        }, 550);
       }
     }
 
