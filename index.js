@@ -15,9 +15,7 @@
   - Test audio output (using the Audio API)
   - Test capture using local media capture
 
-  ## Icon Licenses
-
-  <<< docs/icons.md
+  <<< docs/assets.md
 
 **/
 
