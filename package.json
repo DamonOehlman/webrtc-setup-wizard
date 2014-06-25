@@ -1,6 +1,6 @@
 {
   "name": "rtc-ui-setup",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A UI wizard to assist with ensuring that all the components of a users system are setup ready to go for WebRTC",
   "main": "index.js",
   "scripts": {
