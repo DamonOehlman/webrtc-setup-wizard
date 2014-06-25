@@ -34,17 +34,12 @@ var DEFAULT_STEPS = [
 var stepHTML = require('./steps');
 
 function createButtons() {
-  var buttons = [];
-
-  buttons.push(crel('button', {
-    class: 'stepback'
-  }, 'cancel'));
-
-  buttons.push(crel('button', {
-    class: 'stepforward'
-  }, 'next'));
-
-  return crel('div', { class: 'rtc-wizard-buttons' }, buttons);
+  return crel(
+    'div',
+    { class: 'rtc-wizard-buttons' },
+    crel('button', { 'data-action': 'cancel' }, 'cancel'),
+    crel('button', { 'data-action': 'next' }, 'next')
+  );
 }
 
 function createStep(stepCount) {
@@ -54,6 +49,15 @@ function createStep(stepCount) {
       'data-step': name
     }, stepHTML[name]);
   };
+}
+
+function makeFinishButton(wizard){
+  var button = wizard.querySelector('button[data-action="next"]');
+
+  if (button) {
+    button.dataset.action = 'finish';
+    button.innerText = 'finish';
+  }
 }
 
 module.exports = function(opts, callback) {
@@ -68,21 +72,20 @@ module.exports = function(opts, callback) {
   var wizardSteps = steps.map(createStep(steps.length));
   var handlers = {
     cancel: function() {
-      handlers.wizardfinish(new Error('Cancelled'));
+      handlers.finish(new Error('Cancelled'));
     },
 
-    stepforward: function() {
+    next: function() {
       currentStep = activateStep(currentStep + 1);
+      if (currentStep >= wizardSteps.length - 1) {
+        makeFinishButton(wizard);
+      }
     },
 
-    stepback: function() {
-      currentStep = activateStep(Math.max(0, currentStep - 1));
-    },
-
-    wizardfinish: function(err) {
+    finish: function(err) {
       // remove the container
-      if (container.parentNode) {
-        container.parentNode.removeChild(container);
+      if (wizard.parentNode) {
+        wizard.parentNode.removeChild(wizard);
       }
 
       if (typeof callback == 'function') {
@@ -100,8 +103,7 @@ module.exports = function(opts, callback) {
   }
 
   function handleClick(evt) {
-    var handler = evt.target && handlers[evt.target.className];
-    console.log(evt.target);
+    var handler = evt.target && handlers[evt.target.dataset.action];
     if (typeof handler == 'function') {
       handler();
     }
