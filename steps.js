@@ -1,9 +1,10 @@
 var fs = require('fs');
 var crel = require('crel');
 var svg = require('svg');
-var icons = {
-  audio: fs.readFileSync(__dirname + '/icons/icon_21365.svg', 'utf8'),
-  capture: fs.readFileSync(__dirname + '/icons/icon_28712.svg', 'utf8')
+var assets = {
+  audio: fs.readFileSync(__dirname + '/assets/icon_21365.svg', 'utf8'),
+  capture: fs.readFileSync(__dirname + '/assets/icon_28712.svg', 'utf8'),
+  sample: fs.readFileSync(__dirname + '/assets/sample.ogg', 'base64')
 };
 
 function docs(target, label) {
@@ -27,10 +28,12 @@ exports.welcome = [
 ];
 
 exports.audio = [
-  crel('h1', 'Can you here the test sound?'),
-  svg(icons.audio),
-  crel('p', 'If you can here the sound, click "next"'),
-  crel('p', 'Otherwise, please consult ', docs('audiosetup'))
+  crel('h1', 'Did you hear the test sound?'),
+  crel('p', 'If you heard the sound, click "next" to continue.'),
+  crel('p', 'Otherwise, please read ', docs('audiosetup'), ' to get audio working.'),
+  crel('audio', {
+    src: 'data:audio/ogg;base64,' + assets.sample
+  })
 ];
 
 exports.capture = [
