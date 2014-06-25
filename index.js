@@ -23,7 +23,6 @@
 
 var defaultcss = require('defaultcss');
 var crel = require('crel');
-var svg = require('svg');
 var fs = require('fs');
 var DEFAULT_STEPS = [
   'welcome',
@@ -32,46 +31,20 @@ var DEFAULT_STEPS = [
   'connect'
 ];
 
-var icons = {
-  audio: fs.readFileSync(__dirname + '/icons/icon_21365.svg', 'utf8'),
-  capture: fs.readFileSync(__dirname + '/icons/icon_28712.svg', 'utf8')
-};
+var stepHTML = require('./steps');
 
-var stepText = {
-  welcome: 'Welcome to the configuration wizard'
-};
-
-function createButtons(index, count) {
+function createButtons() {
   var buttons = [];
 
   buttons.push(crel('button', {
-    class: 'cancel'
+    class: 'stepback'
   }, 'cancel'));
 
-  if (index < (count-1)) {
-    buttons.push(crel('button', {
-      class: 'stepforward'
-    }, 'next'));
-  }
-  else {
-    buttons.push(crel('button', {
-      class: 'wizardfinish'
-    }, 'finish'));
-  }
+  buttons.push(crel('button', {
+    class: 'stepforward'
+  }, 'next'));
 
   return crel('div', { class: 'rtc-wizard-buttons' }, buttons);
-}
-
-function createIcon(name) {
-  return crel('div', {
-    class: 'rtc-wizard-icon',
-  }, svg(icons[name]));
-}
-
-function createStepText(name) {
-  return crel('div', {
-    class: 'rtc-wizard-text'
-  }, stepText[name] || '');
 }
 
 function createStep(stepCount) {
@@ -79,7 +52,7 @@ function createStep(stepCount) {
     return crel('section', {
       class: 'rtc-wizard-step',
       'data-step': name
-    }, createIcon(name), createStepText(name), createButtons(index, stepCount));
+    }, stepHTML[name]);
   };
 }
 
@@ -87,8 +60,11 @@ module.exports = function(opts, callback) {
   var currentStep = 0;
   var steps = (opts || {}).steps || DEFAULT_STEPS;
   var container = crel('div', {
-    class: 'rtc-wizard rtc-setup'
+    class: 'rtc-wizard-pages'
   });
+  var wizard = crel('div', {
+    class: 'rtc-wizard rtc-setup',
+  }, container, createButtons());
   var wizardSteps = steps.map(createStep(steps.length));
   var handlers = {
     cancel: function() {
@@ -100,7 +76,7 @@ module.exports = function(opts, callback) {
     },
 
     stepback: function() {
-      currentStep = activateStep(currentStep - 1);
+      currentStep = activateStep(Math.max(0, currentStep - 1));
     },
 
     wizardfinish: function(err) {
@@ -125,6 +101,7 @@ module.exports = function(opts, callback) {
 
   function handleClick(evt) {
     var handler = evt.target && handlers[evt.target.className];
+    console.log(evt.target);
     if (typeof handler == 'function') {
       handler();
     }
@@ -141,11 +118,11 @@ module.exports = function(opts, callback) {
 
   // add the steps to the container
   wizardSteps.forEach(function(el) {
-    el.addEventListener('click', handleClick);
     container.appendChild(el);
   });
 
+  wizard.addEventListener('click', handleClick);
   currentStep = activateStep(0);
 
-  return container;
+  return wizard;
 };

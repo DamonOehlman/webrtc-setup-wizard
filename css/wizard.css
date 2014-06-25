@@ -4,17 +4,26 @@
   width: 50vw;
   left: 25vw;
   top: 5vh;
-  background: rgba(80, 80, 80, 0.8);
-  overflow: hidden;
+  background: rgba(80, 80, 80, 0.2);
+  box-shadow: 0 0 10px rgba(30, 30, 30, 0.2) inset;
 
   border-radius: 8px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
 }
 
-.rtc-wizard section {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+.rtc-wizard-pages {
+  flex: 1;
+  overflow: hidden;
+}
 
+.rtc-wizard-pages section {
+  position: absolute;
+  width: calc(100% - 80px);
+  flex: 1;
+  padding: 10px 40px;
   top: 0;
   left: 0;
 
@@ -36,29 +45,13 @@
 }
 
 
-section.rtc-wizard-step {
-  display: flex;
-  flex-direction: column;
-}
-
-div.rtc-wizard-icon {
-  flex: 1;
-  margin: 10px;
-  display: flex;
-}
-
-div.rtc-wizard-icon svg {
+.rtc-wizard-step svg {
   flex: 1;
 }
 
 div.rtc-wizard-buttons {
   display: flex;
   height: 80px;
-}
-
-div.rtc-wizard-text {
-  margin: 10px;
-  text-align: center;
 }
 
 div.rtc-wizard-buttons button {
