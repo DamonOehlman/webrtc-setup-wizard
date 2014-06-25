@@ -24,14 +24,13 @@
 var defaultcss = require('defaultcss');
 var crel = require('crel');
 var fs = require('fs');
+var extend = require('cog/extend');
 var DEFAULT_STEPS = [
   'welcome',
   'audio',
   'capture',
   'connect'
 ];
-
-var stepHTML = require('./steps');
 
 function createButtons() {
   return crel(
@@ -42,7 +41,7 @@ function createButtons() {
   );
 }
 
-function createStep(stepCount) {
+function createStep(stepCount, stepHTML) {
   return function createStep(name, index) {
     return crel('section', {
       class: 'rtc-wizard-step',
@@ -69,7 +68,7 @@ module.exports = function(opts, callback) {
   var wizard = crel('div', {
     class: 'rtc-wizard rtc-setup',
   }, container, createButtons());
-  var wizardSteps = steps.map(createStep(steps.length));
+
   var handlers = {
     cancel: function() {
       handlers.finish(new Error('Cancelled'));
@@ -94,10 +93,29 @@ module.exports = function(opts, callback) {
     }
   };
 
+  var stepActions = extend({}, require('./actions'), (opts || {}).actions);
+  var stepHTML = extend({}, require('./steps'), (opts || {}).steps);
+  var wizardSteps = steps.map(createStep(steps.length, stepHTML));
+
   function activateStep(target) {
+    var active;
+    var action;
+
     wizardSteps.forEach(function(step, idx) {
       step.dataset.state = (idx <= target && (idx < target ? 'past' : 'active')) || '';
     });
+
+    // get the new active element
+    active = wizardSteps.filter(function(step) {
+      return step.dataset.state === 'active';
+    })[0];
+
+    if (active) {
+      action = stepActions[active.dataset.step];
+      if (typeof action == 'function') {
+        action(active, opts);
+      }
+    }
 
     return target;
   }

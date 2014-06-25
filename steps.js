@@ -34,5 +34,6 @@ exports.audio = [
 ];
 
 exports.capture = [
-  crel('h1', 'Test Audio Capture')
+  crel('h1', 'Test Audio Capture'),
+  crel('p', 'We will now test whether we can capture a media stream')
 ];
