@@ -10,13 +10,26 @@ ensure their machine is correctly configured to work with WebRTC.
 
 ## Example Usage
 
-ERROR: could not find: 
+```js
+var setupWizard = require('rtc-ui-setup');
+var wizard = setupWizard(function(err) {
+  if (err) {
+    return console.error('wizard aborted with error: ', err);
+  }
+
+  console.log('done');
+});
+
+document.body.appendChild(wizard);
+
+```
 
 ## Test Steps
 
 The following test steps are executed as part of the testing cycle:
 
--
+- Test audio output (using the Audio API)
+- Test capture using local media capture
 
 ## Icon Licenses
 
