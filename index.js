@@ -37,14 +37,16 @@ var icons = {
   capture: fs.readFileSync(__dirname + '/icons/icon_28712.svg', 'utf8')
 };
 
+var stepText = {
+  welcome: 'Welcome to the configuration wizard'
+};
+
 function createButtons(index, count) {
   var buttons = [];
 
-  if (index > 0) {
-    buttons.push(crel('button', {
-      class: 'stepback'
-    }, 'back'));
-  }
+  buttons.push(crel('button', {
+    class: 'cancel'
+  }, 'cancel'));
 
   if (index < (count-1)) {
     buttons.push(crel('button', {
@@ -57,7 +59,19 @@ function createButtons(index, count) {
     }, 'finish'));
   }
 
-  return buttons;
+  return crel('div', { class: 'rtc-wizard-buttons' }, buttons);
+}
+
+function createIcon(name) {
+  return crel('div', {
+    class: 'rtc-wizard-icon',
+  }, svg(icons[name]));
+}
+
+function createStepText(name) {
+  return crel('div', {
+    class: 'rtc-wizard-text'
+  }, stepText[name] || '');
 }
 
 function createStep(stepCount) {
@@ -65,7 +79,7 @@ function createStep(stepCount) {
     return crel('section', {
       class: 'rtc-wizard-step',
       'data-step': name
-    }, [svg(icons[name]) || []].concat(createButtons(index, stepCount)));
+    }, createIcon(name), createStepText(name), createButtons(index, stepCount));
   };
 }
 
@@ -77,6 +91,10 @@ module.exports = function(opts, callback) {
   });
   var wizardSteps = steps.map(createStep(steps.length));
   var handlers = {
+    cancel: function() {
+      handlers.wizardfinish(new Error('Cancelled'));
+    },
+
     stepforward: function() {
       currentStep = activateStep(currentStep + 1);
     },
@@ -85,14 +103,14 @@ module.exports = function(opts, callback) {
       currentStep = activateStep(currentStep - 1);
     },
 
-    wizardfinish: function() {
+    wizardfinish: function(err) {
       // remove the container
       if (container.parentNode) {
         container.parentNode.removeChild(container);
       }
 
       if (typeof callback == 'function') {
-        callback();
+        callback(err);
       }
     }
   };
@@ -108,7 +126,7 @@ module.exports = function(opts, callback) {
   function handleClick(evt) {
     var handler = evt.target && handlers[evt.target.className];
     if (typeof handler == 'function') {
-      handler(evt);
+      handler();
     }
   }
 
