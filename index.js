@@ -1,5 +1,5 @@
 /**
-  # rtc-ui-setup
+  # webrtc-setup-wizard
 
   This a user interface wizard that will guide a user through a few tests to
   ensure their machine is correctly configured to work with WebRTC.
