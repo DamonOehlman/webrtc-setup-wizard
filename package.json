@@ -1,5 +1,5 @@
 {
-  "name": "rtc-ui-setup",
+  "name": "webrtc-setup-wizard",
   "version": "0.0.3",
   "description": "A UI wizard to assist with ensuring that all the components of a users system are setup ready to go for WebRTC",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rtc-io/rtc-ui-setup.git"
+    "url": "https://github.com/DamonOehlman/webrtc-setup-wizard.git"
   },
   "keywords": [
     "webrtc",
@@ -17,12 +17,12 @@
     "ui",
     "wizard"
   ],
-  "author": "Damon Oehlman <damon.oehlman@nicta.com.au>",
-  "license": "Apache 2.0",
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rtc-io/rtc-ui-setup/issues"
+    "url": "https://github.com/DamonOehlman/webrtc-setup-wizard/issues"
   },
-  "homepage": "https://github.com/rtc-io/rtc-ui-setup",
+  "homepage": "https://github.com/DamonOehlman/webrtc-setup-wizard",
   "dependencies": {
     "brfs": "^1",
     "cog": "^1.0.0",
