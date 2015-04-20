@@ -3,9 +3,6 @@
 This a user interface wizard that will guide a user through a few tests to
 ensure their machine is correctly configured to work with WebRTC.
 
-
-[![NPM](https://nodei.co/npm/webrtc-setup-wizard.png)](https://nodei.co/npm/webrtc-setup-wizard/)
-
 [![experimental](https://img.shields.io/badge/stability-experimental-red.svg)](https://github.com/dominictarr/stability#experimental) 
 
 ## Example Usage
@@ -58,7 +55,7 @@ Additionally, the following test sounds are included:
 
 ### ISC
 
-Copyright (c) 2015, National ICT Australia Limited (NICTA)
+Copyright (c) 2015, Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
