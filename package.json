@@ -26,8 +26,8 @@
   "dependencies": {
     "brfs": "^1",
     "cog": "^1.0.0",
-    "crel": "^1",
-    "defaultcss": "0.0.2",
+    "crel": "^2.1.8",
+    "defaultcss": "^1.1.1",
     "svg": "npm-dom/svg#restructure"
   },
   "browserify": {
